@@ -1,6 +1,6 @@
 package homework2;
 
-import homework2.generics.LinkedList;
+import homework2.generics.CustomLinkedList;
 
 public class Subject<T> {
 
@@ -9,7 +9,7 @@ public class Subject<T> {
     private String subjectDesc;
     private int weekHours;
     private int totalHours;
-    private LinkedList<Professor> proffesors;
+    private CustomLinkedList<Professor> proffesors;
 
     public Subject(int idSubject) {
         this.setIdSubject(idSubject);
@@ -22,7 +22,7 @@ public class Subject<T> {
 
     public static void main(String[] args) {
         try {
-            LinkedList<Professor> ll = new LinkedList<Professor>();
+            CustomLinkedList<Professor> ll = new CustomLinkedList<Professor>();
             ll.print();
         } catch (Exception e) {
             e.printStackTrace();

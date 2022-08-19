@@ -1,13 +1,15 @@
 package homework2;
 
+import homework2.generics.CustomLinkedList;
+
 import java.util.LinkedList;
 
 public class University {
     private String name;
     private String location;
-    private LinkedList<Course> courses = new LinkedList<>();
+    private CustomLinkedList<Course> courses = new CustomLinkedList<>();
 
-    public University(String name, LinkedList<Course> courses) {
+    public University(String name, CustomLinkedList<Course> courses) {
         this.setName(name);
         this.setCourses(courses);
     }
@@ -28,11 +30,11 @@ public class University {
         this.location = location;
     }
 
-    public LinkedList<Course> getCourses() {
+    public CustomLinkedList<Course> getCourses() {
         return courses;
     }
 
-    public void setCourses(LinkedList<Course> courses) {
+    public void setCourses(CustomLinkedList<Course> courses) {
         this.courses = courses;
     }
 
@@ -45,8 +47,9 @@ public class University {
     }
 
     public void removeCourse(Course course) {
-        this.courses.remove(course);
+        this.courses.remove(course); // VER
     }
+
 
 
     @Override
