@@ -20,14 +20,14 @@ public class Subject<T> {
         this.setName(name);
     }
 
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         try {
             CustomLinkedList<Professor> ll = new CustomLinkedList<Professor>();
             ll.print();
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
 
     public void insert_professor_test() {
