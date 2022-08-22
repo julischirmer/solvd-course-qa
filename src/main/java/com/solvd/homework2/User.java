@@ -1,12 +1,12 @@
-package homework2;
+package com.solvd.homework2;
+
+import com.solvd.homework2.enums.UserAccess;
 
 public class User {
 
     private String username;
     private String password;
-    //private String name;
-    //private String lastname;
-    private String email;
+    private String userAccess;
 
     public String getUsername() {
         return username;
@@ -23,13 +23,11 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public String getEmail() {
-        return email;
+    public String getUserAccess(){
+        return this.userAccess;
     }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserAccess(String userAccess){
+        this.userAccess = UserAccess.valueOf(userAccess).getUserAccess();
     }
 
     @Override
@@ -37,7 +35,6 @@ public class User {
         return "User{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
                 '}';
     }
 }

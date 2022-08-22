@@ -1,8 +1,10 @@
-package homework2;
+package com.solvd.homework2;
+
+import com.solvd.homework2.enums.Deparment;
 
 public class Department {
     private int idDeparment;
-    private String descDepartment; //Systems, Law, Science, etc.
+    private String descDepartment; //Science, Math, Art, Technology.
 
 
     public int getIdDeparment() {
@@ -18,7 +20,7 @@ public class Department {
     }
 
     public void setDescDepartment(String descDepartment) {
-        this.descDepartment = descDepartment;
+        this.descDepartment = Deparment.valueOf(descDepartment).getDeparment();
     }
 
     @Override

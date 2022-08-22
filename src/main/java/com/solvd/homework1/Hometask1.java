@@ -1,4 +1,4 @@
-package homework2.homework1;
+package com.solvd.homework1;
 
 import java.lang.reflect.Array;
 

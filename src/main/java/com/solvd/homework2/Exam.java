@@ -1,4 +1,5 @@
-package homework2;
+package com.solvd.homework2;
+
 
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -9,13 +10,13 @@ public class Exam {
     private int examnumber;
     private LinkedList<Professor> professors;
     private Subject subject;
+    private LinkedList<Student> students;
 
-/*    public Exam(LocalDate examdate, int examnumber, LinkedList<Professor> professors) {
+    public Exam(int examnumber, Subject subject) {
 
         this.setExamdate(examdate);
-        this.setExamnumber(examnumber);
-        this.setProfessors(professors);
-    }*/
+        this.setSubject(subject);
+    }
 
     public LocalDate getExamdate() {
         return examdate;
@@ -39,6 +40,14 @@ public class Exam {
 
     public void setProfessors(LinkedList<Professor> professors) {
         this.professors = professors;
+    }
+
+    public void setSubject (Subject subject){
+        this.subject = subject;
+    }
+
+    public Subject getSubject(){
+        return this.subject;
     }
 
     @Override

@@ -1,7 +1,7 @@
-package homework2;
+package com.solvd.homework2;
 
-import homework2.exceptions.AgeRestriction;
-import homework2.exceptions.InvalidMailException;
+import com.solvd.homework2.exceptions.AgeRestriction;
+import com.solvd.homework2.exceptions.InvalidMailException;
 
 import java.time.LocalDate;
 import java.util.Objects;

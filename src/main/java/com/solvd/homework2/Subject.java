@@ -1,9 +1,11 @@
-package homework2;
+package com.solvd.homework2;
 
-import homework2.generics.CustomLinkedList;
+import com.solvd.homework2.generics.CustomLinkedList;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Subject<T> {
-
+    private static Logger console = LogManager.getLogger(Subject.class.getName());
     private int idSubject;
     private String name;
     private String subjectDesc;
@@ -20,20 +22,6 @@ public class Subject<T> {
         this.setName(name);
     }
 
-/*    public static void main(String[] args) {
-        try {
-            CustomLinkedList<Professor> ll = new CustomLinkedList<Professor>();
-            ll.print();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
-
-
-    public void insert_professor_test() {
-        Professor professor_test = new Professor(111, "Miguel", "Juarez", 1000);
-        Professor professor_test2 = new Professor(111, "Juan", "Ramik", 1400);
-    }
 
 
     public int getIdSubject() {

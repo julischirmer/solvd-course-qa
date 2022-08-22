@@ -1,4 +1,4 @@
-package homework2.exceptions;
+package com.solvd.homework2.exceptions;
 
 public class InvalidSalary extends Exception {
 

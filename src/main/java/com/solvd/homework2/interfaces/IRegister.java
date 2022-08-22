@@ -1,4 +1,4 @@
-package homework2.interfaces;
+package com.solvd.homework2.interfaces;
 
 public interface IRegister {
 

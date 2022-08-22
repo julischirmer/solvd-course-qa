@@ -1,6 +1,6 @@
-package homework2;
+package com.solvd.homework2;
 
-import homework2.exceptions.InvalidSalary;
+import com.solvd.homework2.exceptions.InvalidSalary;
 
 public final class Professor extends Person {
     private double salary;

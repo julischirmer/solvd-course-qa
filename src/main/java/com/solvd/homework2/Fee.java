@@ -1,7 +1,7 @@
-package homework2;
+package com.solvd.homework2;
 
 
-import homework2.exceptions.InvalidMonthNumberException;
+import com.solvd.homework2.exceptions.InvalidMonthNumberException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -1,7 +1,7 @@
-package homework2;
+package com.solvd.homework2;
 
-import homework2.exceptions.InvalidCourseCostException;
-import homework2.exceptions.InvalidMailException;
+import com.solvd.homework2.exceptions.InvalidCourseCostException;
+import com.solvd.homework2.exceptions.InvalidMailException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,15 +13,18 @@ public class Main {
     private static Logger console = LogManager.getLogger(Main.class.getName());
 
     public static void main(String[] args) {
-        try {
+/*        try {
             console.info("This is info");
             run();
         } catch (InvalidCourseCostException e) {
             System.out.println(e.getMessage());
         } catch (InvalidMailException e) {
             System.out.println(e.getMessage());
-        }
+        }*/
 
+        Enrollment newenroll = new Enrollment(111,new Student(123));
+        newenroll.setGrade("MERIT");
+        console.info(newenroll);
 
     }
 

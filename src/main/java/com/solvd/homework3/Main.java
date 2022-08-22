@@ -1,4 +1,4 @@
-package homework3;
+package com.solvd.homework3;
 
 
 import org.apache.commons.io.FileUtils;
@@ -11,15 +11,12 @@ import java.io.File;
 import java.io.IOException;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Scanner;
 
 public class Main {
 
-    private static Logger logger = LogManager.getLogger(homework2.Main.class.getName());
+    private static Logger logger = LogManager.getLogger(com.solvd.homework2.Main.class.getName());
     private static File myfile = new File ("src/main/resources/example.txt");
     public static void main(String[] args) throws IOException {
 
@@ -43,7 +40,7 @@ public class Main {
             }
         }
 
-        FileUtils.writeStringToFile(myfile, "Unique words in the example: " + quantity + " \n", "UTF-8", true);
+        FileUtils.writeStringToFile(myfile, "Unique words in the text: " + quantity + " \n", "UTF-8", true);
         logger.info("Unique words : " + quantity);
 
     }

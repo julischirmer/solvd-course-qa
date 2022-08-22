@@ -1,6 +1,8 @@
-package homework2;
+package com.solvd.homework2;
 
-import homework2.exceptions.InvalidCourseCostException;
+import com.solvd.homework2.enums.CourseStatus;
+import com.solvd.homework2.exceptions.InvalidCourseCostException;
+import com.solvd.homework2.enums.CourseAvailability;
 
 import java.util.InputMismatchException;
 import java.util.LinkedList;
@@ -15,6 +17,8 @@ public class Course {
     private LinkedList<Subject> subjects = new LinkedList<>();
     private LinkedList<Student> students = new LinkedList<>();
     private double cost;
+    private String enrollmentStatus;
+    private String availabilityStatus;
 
 
     public Course(int idcourse, double price, String name) throws InvalidCourseCostException {
@@ -145,6 +149,22 @@ public class Course {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setEnrollmentStatus(String enrollmentStatus){
+        this.enrollmentStatus = CourseStatus.valueOf(enrollmentStatus).getStatus();
+    }
+
+    public String getEnrollmentStatus(){
+        return this.enrollmentStatus;
+    }
+
+    public void setAvailabilityStatus(String availability){
+        this.availabilityStatus = CourseAvailability.valueOf(availability).getCourseAvailability();
+    }
+
+    public String getAvailabilityStatus(){
+        return this.availabilityStatus;
     }
 
     @Override
