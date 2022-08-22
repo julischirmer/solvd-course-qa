@@ -1,0 +1,16 @@
+   public static void main(String[] args) {
+        try {
+            CustomLinkedList<Professor> ll = new CustomLinkedList<Professor>();
+            ll.insert(new Professor(111,"Julian","Schirmer",1000));
+            ll.insert(new Professor(122,"Pepe","Samian",2000));
+            ll.display();
+            console.info("...\n");
+            ll.deleteNodeAt(0);
+            ll.display();
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
