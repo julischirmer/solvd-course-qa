@@ -8,7 +8,10 @@ import org.apache.logging.log4j.Logger;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.function.BiPredicate;
 import java.util.function.Consumer;
+import java.util.function.IntToDoubleFunction;
+import java.util.function.LongFunction;
 
 public class Main {
     private static Logger console = LogManager.getLogger(Main.class.getName());
@@ -27,12 +30,49 @@ public class Main {
         newenroll.setGrade("MERIT");
         console.info(newenroll);*/
 
-        lambda_util();
-
-
+        lambda_util_longfunction();
+        lambda_util_bipredicated();
 
 
     }
+
+    public static void lambda_util_bipredicated(){
+        Professor professor = new Professor(1111,"Julian","Perez", 100);
+
+        IntToDoubleFunction toDouble = (dni) -> {
+            return Double.parseDouble(Integer.toString(dni));
+        };
+
+        double dniToDouble = toDouble.applyAsDouble(professor.getDni());
+        console.info(dniToDouble);
+    }
+
+    public static void lambda_util_consumer() throws NullPointerException{
+        Exam exam = new Exam(1111, new Subject<>(1111, "QA Testing"));
+        Consumer<Professor> addProfessor = (Professor) -> {
+            console.info(Professor);
+            exam.getProfessors().addLast(Professor);
+        };
+
+        Professor professorTesting = new Professor(121212,"Carlos","Nicole",1000);
+        addProfessor.accept(professorTesting);
+        console.info(exam.getProfessors());
+    }
+
+    public static void lambda_util_longfunction() {
+        long University1 = 10000;
+        long University2 = 15000;
+        long University3 = 25000;
+        LongFunction longexample = (total) -> {
+            total = University1 + University2 + University3;
+            return total;
+        };
+        long total = 0;
+        long totalStudents = (long) longexample.apply(total);
+        console.info(totalStudents);
+    }
+
+
 
     public static void run() throws InvalidCourseCostException, InvalidMailException {
 
@@ -42,6 +82,7 @@ public class Main {
                 "j@gmail.com", LocalDate.of(2001, 10, 30));
         Student student2 = new Student(112, "Carlos", "Perez",
                 "c@gmail.com", LocalDate.of(1999, 2, 14));
+
 
         students.add(student);
         students.add(student2);
@@ -70,19 +111,6 @@ public class Main {
 
     }
 
-    public static void lambda_util() throws NullPointerException{
-        Exam exam = new Exam(1111, new Subject<>(1111, "QA Testing"));
-        Consumer<Professor> addProfessor = (Professor) -> {
-            console.info(Professor);
-            exam.getProfessors().addLast(Professor);
-        };
-
-        Professor professorTesting = new Professor(121212,"Carlos","Nicole",1000);
-        addProfessor.accept(professorTesting);
-        console.info(exam.getProfessors());
-
-
-    }
 
     public static void menu(LinkedList<Student> students, LinkedList<Course> courses) throws InvalidCourseCostException {
 

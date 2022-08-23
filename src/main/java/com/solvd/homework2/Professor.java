@@ -37,7 +37,7 @@ public final class Professor extends Person {
         console.info("Insert the amount of u$d to increase: ");
         double bonus = 100;
         ISalaryBonus increase = (total) -> {
-            this.salary = this.salary + total;
+            this.salary = this.salary + Integer.valueOf(total.toString());
         };
         increase.increaseSalary(bonus);
     }

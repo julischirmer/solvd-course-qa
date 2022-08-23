@@ -135,7 +135,7 @@ public class Course {
 
 
     public int getAvailability(){
-        IAvailability availability = (totalquota,studentsEnroll) -> totalquota - studentsEnroll;
+        IAvailability availability = (totalquota, studentsEnroll) -> totalquota - studentsEnroll;
         return availability.availability(this.total, students.size());
     }
 

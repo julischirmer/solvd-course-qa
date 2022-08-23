@@ -4,7 +4,6 @@ package com.solvd.homework2;
 import com.solvd.homework2.exceptions.InvalidCourseCostException;
 import com.solvd.homework2.exceptions.InvalidMonthNumberException;
 import com.solvd.homework2.interfaces.IDiscount;
-import jdk.vm.ci.meta.Local;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
