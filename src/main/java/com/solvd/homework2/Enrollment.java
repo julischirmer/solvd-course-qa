@@ -7,7 +7,6 @@ public class Enrollment implements IRegister {
 
     private int idEnrollment;
     private Student student;
-
     private String grade = null;
 
     public Enrollment(int id, Student student) {

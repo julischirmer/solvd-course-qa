@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 public class Main {
     private static Logger console = LogManager.getLogger(Main.class.getName());
@@ -22,9 +23,14 @@ public class Main {
             System.out.println(e.getMessage());
         }*/
 
-        Enrollment newenroll = new Enrollment(111,new Student(123));
+      /*  Enrollment newenroll = new Enrollment(111,new Student(123));
         newenroll.setGrade("MERIT");
-        console.info(newenroll);
+        console.info(newenroll);*/
+
+        lambda_util();
+
+
+
 
     }
 
@@ -61,6 +67,20 @@ public class Main {
 
 
         menu(students, courses);
+
+    }
+
+    public static void lambda_util() throws NullPointerException{
+        Exam exam = new Exam(1111, new Subject<>(1111, "QA Testing"));
+        Consumer<Professor> addProfessor = (Professor) -> {
+            console.info(Professor);
+            exam.getProfessors().addLast(Professor);
+        };
+
+        Professor professorTesting = new Professor(121212,"Carlos","Nicole",1000);
+        addProfessor.accept(professorTesting);
+        console.info(exam.getProfessors());
+
 
     }
 

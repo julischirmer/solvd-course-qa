@@ -24,8 +24,8 @@ public class Student extends Person {
 
     }
 
-
-    public Student(int dni) {
+    public Student(int dni){
+        super();
         this.setDni(dni);
     }
 

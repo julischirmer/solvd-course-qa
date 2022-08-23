@@ -1,11 +1,15 @@
 package com.solvd.homework2;
 
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.time.LocalDate;
 import java.util.LinkedList;
+import java.util.function.Consumer;
 
 public class Exam {
-
+    private static Logger console = LogManager.getLogger(Exam.class.getName());
     private LocalDate examdate;
     private int examnumber;
     private LinkedList<Professor> professors;
@@ -49,6 +53,13 @@ public class Exam {
     public Subject getSubject(){
         return this.subject;
     }
+
+
+    Consumer<Professor> addProfessor = (Professor) -> {
+        console.info(Professor);
+        professors.add(Professor);
+    };
+
 
     @Override
     public String toString() {

@@ -3,11 +3,13 @@ package com.solvd.homework2;
 import com.solvd.homework2.enums.CourseStatus;
 import com.solvd.homework2.exceptions.InvalidCourseCostException;
 import com.solvd.homework2.enums.CourseAvailability;
+import com.solvd.homework2.interfaces.IAvailability;
 
 import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Scanner;
+
 
 public class Course {
 
@@ -131,9 +133,13 @@ public class Course {
         }
     }
 
-    public int getAvailability() {
-        return (this.total - students.size());
+
+    public int getAvailability(){
+        IAvailability availability = (totalquota,studentsEnroll) -> totalquota - studentsEnroll;
+        return availability.availability(this.total, students.size());
     }
+
+
 
     public LinkedList<Student> getStudents() {
         return students;

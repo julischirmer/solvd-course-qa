@@ -1,8 +1,12 @@
 package com.solvd.homework2;
 
 import com.solvd.homework2.exceptions.InvalidSalary;
+import com.solvd.homework2.interfaces.ISalaryBonus;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public final class Professor extends Person {
+    private static Logger console = LogManager.getLogger(Fee.class.getName());
     private double salary;
 
     public Professor(int dni, String name, String lastname, double salary) {
@@ -28,6 +32,16 @@ public final class Professor extends Person {
         }
 
     }
+
+    public void increaseSalary(){
+        console.info("Insert the amount of u$d to increase: ");
+        double bonus = 100;
+        ISalaryBonus increase = (total) -> {
+            this.salary = this.salary + total;
+        };
+        increase.increaseSalary(bonus);
+    }
+
 
 
     @Override

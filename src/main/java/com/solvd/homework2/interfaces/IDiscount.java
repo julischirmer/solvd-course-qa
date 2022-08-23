@@ -1,6 +1,6 @@
 package com.solvd.homework2.interfaces;
-
-public class IDiscount {
-
+@FunctionalInterface
+public interface IDiscount {
+    void goodAverageMarkDiscount();
 
 }

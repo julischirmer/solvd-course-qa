@@ -6,7 +6,6 @@ public class Department {
     private int idDeparment;
     private String descDepartment; //Science, Math, Art, Technology.
 
-
     public int getIdDeparment() {
         return idDeparment;
     }
