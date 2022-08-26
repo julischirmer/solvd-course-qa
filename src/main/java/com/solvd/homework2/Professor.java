@@ -6,7 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public final class Professor extends Person {
-    private static Logger console = LogManager.getLogger(Fee.class.getName());
+    private final static Logger console = LogManager.getLogger(Fee.class.getName());
     private double salary;
 
     public Professor(int dni, String name, String lastname, double salary) {
@@ -35,10 +35,8 @@ public final class Professor extends Person {
 
     public void increaseSalary(){
         console.info("Insert the amount of u$d to increase: ");
-        double bonus = 100;
-        ISalaryBonus increase = (total) -> {
-            this.salary = this.salary + Integer.valueOf(total.toString());
-        };
+        int bonus = 100;
+        ISalaryBonus increase = (total) -> this.salary = this.salary + Integer.valueOf(total.toString());
         increase.increaseSalary(bonus);
     }
 
@@ -50,7 +48,7 @@ public final class Professor extends Person {
                 "dni=" + this.getDni() +
                 ", name=" + this.getName() +
                 ", last name=" + this.getLastname() +
-                ", salary=" + salary +
+                ", salary=" + this.getSalary() +
                 '}';
     }
 

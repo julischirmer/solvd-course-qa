@@ -22,15 +22,14 @@ public class Course {
     private String enrollmentStatus;
     private String availabilityStatus;
 
+    public Course() {
+
+    }
 
     public Course(int idcourse, double price, String name) throws InvalidCourseCostException {
         this.setIdCourse(idcourse);
         this.setName(name);
         this.setCost(price);
-    }
-
-    public Course() {
-
     }
 
     public Course(int idCourse) {

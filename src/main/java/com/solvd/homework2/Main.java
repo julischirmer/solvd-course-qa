@@ -5,6 +5,9 @@ import com.solvd.homework2.exceptions.InvalidMailException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.rmi.StubNotFoundException;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -16,7 +19,7 @@ import java.util.function.LongFunction;
 public class Main {
     private static Logger console = LogManager.getLogger(Main.class.getName());
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidMailException {
 /*        try {
             console.info("This is info");
             run();
@@ -30,13 +33,85 @@ public class Main {
         newenroll.setGrade("MERIT");
         console.info(newenroll);*/
 
-        lambda_util_longfunction();
-        lambda_util_bipredicated();
+        // usingStreams();
 
 
     }
 
-    public static void lambda_util_bipredicated(){
+    public static void usingStreams() throws InvalidMailException {
+        LinkedList<Student> students = new LinkedList<>();
+
+        Student student = new Student(111, "Julian", "Schirmer",
+                "j@gmail.com", LocalDate.of(2001, 10, 30));
+        Student student2 = new Student(112, "Carlos", "Perez",
+                "c@gmail.com", LocalDate.of(1999, 2, 14));
+        Student student3 = new Student(112, "Pepe", "Perez",
+                "c@gmail.com", LocalDate.of(1999, 2, 14));
+        Student student4 = new Student(112, "Damian", "Perez",
+                "c@gmail.com", LocalDate.of(1999, 2, 14));
+        Student student5 = new Student(112, "Miguel", "Perez",
+                "c@gmail.com", LocalDate.of(1999, 2, 14));
+
+
+
+        students.add(student);
+        students.add(student2);
+        students.add(student3);
+        students.add(student4);
+        students.add(student5);
+
+        Exam exam = new Exam(1,new Subject<>(111));
+
+        // Save new Students
+        exam.setStudents(students);
+        console.info(exam.getStudentsNames(students));
+
+        // Save names from students
+        LinkedList<String> names = new LinkedList<>();
+        names = exam.getStudentsNames(students);
+
+        console.info("Show names in lower case");
+        // Show names in lower case
+        exam.toLowerCaseNames(names);
+
+        console.info("Count students:");
+        // Count students
+        exam.countStudents(students);
+
+        console.info("names match with name:");
+        // Students who match name
+        exam.matchNames(names,"Carlos");
+
+        console.info("Sorted names A to Z:");
+        // Sorted names A to Z
+        exam.sortedNamesAtoZ(names);
+
+        console.info("Sorted names Z to A:");
+        // Sorted names Z to A
+        exam.sortedNamesZtoA(names);
+
+
+
+        students.addLast(new Student(2020,"Carlos","Miguel",
+                "c@gmail.com", LocalDate.of(1999, 2, 14)));
+        names = exam.getStudentsNames(students);
+
+        // Distinct students
+        console.info("Full names students list: ");
+        console.info(names);
+        console.info("Same list with distinct");
+        exam.distinctNames(names);
+    }
+
+    public static void lambdaUtils(){
+        lambda_util_consumer();
+        longFunction();
+        intToDouble();
+        lambda_util_bipredicated();
+    }
+
+    public static void intToDouble(){
+        // IntToDouble
         Professor professor = new Professor(1111,"Julian","Perez", 100);
 
         IntToDoubleFunction toDouble = (dni) -> {
@@ -59,7 +134,7 @@ public class Main {
         console.info(exam.getProfessors());
     }
 
-    public static void lambda_util_longfunction() {
+    public static void longFunction() {
         long University1 = 10000;
         long University2 = 15000;
         long University3 = 25000;
@@ -70,6 +145,20 @@ public class Main {
         long total = 0;
         long totalStudents = (long) longexample.apply(total);
         console.info(totalStudents);
+    }
+
+    public static void lambda_util_bipredicated (){
+        Professor miguel = new Professor(2020,"Miguel","Guemez", 1000);
+        Professor juan = new Professor(1515,"Juan", "Belgrano", 2000);
+        BiPredicate professor = (name1, name2) -> {
+            if(name1.equals(name2)){
+                return true;
+            } else {
+                return false;
+            }
+        };
+        boolean answer = professor.test(miguel.getName(),juan.getName());
+        console.info(answer);
     }
 
 

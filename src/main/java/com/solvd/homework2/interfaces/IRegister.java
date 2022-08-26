@@ -3,11 +3,11 @@ package com.solvd.homework2.interfaces;
 public interface IRegister {
 
 
-    public abstract void create();
+    void create();
 
-    public abstract void delete();
+    void delete();
 
-    public abstract void modify();
+    void modify();
 
 
 }
