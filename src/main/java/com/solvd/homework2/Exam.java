@@ -93,6 +93,8 @@ public class Exam {
         return studentsnames;
     }
 
+    // STREAMS
+
     public void toLowerCaseNames(LinkedList<String> studentsnames){
         studentsnames.stream().map(x -> x.toLowerCase()).forEach(x -> console.info(x));
     }
