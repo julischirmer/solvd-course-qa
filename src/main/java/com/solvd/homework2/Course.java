@@ -1,10 +1,10 @@
 package com.solvd.homework2;
 
-import com.solvd.homework2.connectionPool.RunnableTask;
 import com.solvd.homework2.enums.CourseStatus;
+import com.solvd.homework2.enums.DepartmentType;
 import com.solvd.homework2.exceptions.InvalidCourseCostException;
 import com.solvd.homework2.enums.CourseAvailability;
-import com.solvd.homework2.interfaces.IAvailability;
+import com.solvd.homework2.functionalInterfaces.IAvailability;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,100 +12,35 @@ import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 
 public class Course {
 
-    private static final Logger logger = LogManager.getLogger(Course.class.getName());
-    private static final int total = 150;
+    public static final Logger logger = LogManager.getLogger(Course.class.getName());
+    private final int total = 150;
     private int idCourse;
     private String name;
+    private DepartmentType departmentType;
     private LinkedList<Subject> subjects = new LinkedList<>();
     private LinkedList<Student> students = new LinkedList<>();
     private double cost;
-    private String enrollmentStatus;
-    private String availabilityStatus;
+    private CourseAvailability courseAvailability;
 
     public Course() {
 
     }
 
-    public Course(int idcourse, double price, String name) throws InvalidCourseCostException {
+    public Course(int idcourse, double price, String name, DepartmentType departmentType) throws InvalidCourseCostException {
         this.setIdCourse(idcourse);
         this.setName(name);
         this.setCost(price);
+        this.departmentType = departmentType;
     }
 
     public Course(int idCourse) {
         this.setIdCourse(idCourse);
-    }
-
-    public static void isTheCourseAvailable(LinkedList<Course> courses) {
-        try {
-            Scanner scanner = new Scanner(System.in);
-            logger.info("Insert course ID");
-            Course course = new Course(scanner.nextInt());
-            if (courses.contains(course)) {
-                Course coursefinded = courses.get(courses.indexOf(course));
-                if (coursefinded.getAvailability() > 0) {
-                    logger.info("The Course is available");
-                    logger.info("The course quota is: " + coursefinded.getAvailability());
-                } else {
-                    logger.info("The Course is completed");
-                }
-            } else {
-                logger.info("The id Course doesn't exist");
-            }
-        } catch (InputMismatchException e) {
-            logger.error("The course id must be a number");
-            logger.info("The program keeps working...");
-        }
-    }
-
-    public static void getCourseCost(LinkedList<Course> courses) {
-        try {
-            Scanner scanner = new Scanner(System.in);
-            logger.info("Insert course ID");
-            Course course = new Course(scanner.nextInt());
-            if (courses.contains(course)) {
-                Course coursefind = courses.get(courses.indexOf(course));
-                logger.info("The course: " + coursefind.getName() + " has the cost: u$d " + coursefind.getCost());
-            } else {
-                logger.info("The course doesn't exist");
-            }
-        } catch (InputMismatchException e) {
-            logger.error("The course id must be a number");
-            logger.info("The program keeps working...");
-        }
-    }
-
-    public static void getCourseSubjects(LinkedList<Course> courses) {
-        try {
-            Scanner scanner = new Scanner(System.in);
-            logger.info("Insert course ID");
-            Course course = new Course(scanner.nextInt());
-            if (courses.contains(course)) {
-                Course coursefinded = courses.get(courses.indexOf(course));
-                logger.info(coursefinded.getSubjects());
-            } else {
-                logger.info("The id Course doesn't exist");
-            }
-        } catch (InputMismatchException e) {
-            logger.error("The course id must be a number");
-            logger.info("The program keeps working...");
-        }
-    }
-
-    public static Course createCourse() throws InvalidCourseCostException {
-        Scanner scanner = new Scanner(System.in);
-        logger.info("Insert course name");
-        String nameCourse = scanner.nextLine();
-        logger.info("Insert course ID");
-        int courseId = scanner.nextInt();
-        logger.info("Insert cost course");
-        double courseprice = scanner.nextDouble();
-        Course course = new Course(courseId, courseprice, nameCourse);
-        return course;
     }
 
     public int getIdCourse() {
@@ -136,13 +71,18 @@ public class Course {
         }
     }
 
-
-    public int getAvailability(){
-        IAvailability availability = (totalquota, studentsEnroll) -> totalquota - studentsEnroll;
-        return availability.availability(this.total, students.size());
+    public DepartmentType getDepartmentType() {
+        return departmentType;
     }
 
+    public void setDepartmentType(DepartmentType departmentType) {
+        this.departmentType = departmentType;
+    }
 
+    public int getAvailability(){
+        IAvailability<Integer,Integer> availability = (totalquota, studentsEnroll) -> totalquota - studentsEnroll;
+        return availability.availability(this.total, students.size());
+    }
 
     public LinkedList<Student> getStudents() {
         return students;
@@ -150,6 +90,16 @@ public class Course {
 
     public void setStudents(LinkedList<Student> students) {
         this.students = students;
+    }
+
+    public void addStudent(Student student){
+        students.addLast(student);
+        int cant = this.total - students.size();
+        if(cant > 1){
+            this.courseAvailability = CourseAvailability.AVAILABLE;
+        }else {
+            this.courseAvailability = CourseAvailability.FULL;
+        }
     }
 
     public String getName() {
@@ -160,20 +110,109 @@ public class Course {
         this.name = name;
     }
 
-    public void setEnrollmentStatus(String enrollmentStatus){
-        this.enrollmentStatus = CourseStatus.valueOf(enrollmentStatus).getStatus();
+
+    public void addSubject(Subject subject) {
+        this.subjects.addLast(subject);
     }
 
-    public String getEnrollmentStatus(){
-        return this.enrollmentStatus;
+    public void removeCourse(Subject subject) {
+        if(subjects.contains(subject)){
+            this.subjects.remove(subject);
+        } else {
+            logger.info("Subject not found");
+        }
     }
 
-    public void setAvailabilityStatus(String availability){
-        this.availabilityStatus = CourseAvailability.valueOf(availability).getCourseAvailability();
+    public static boolean isTheCourseAvailable (Course course){
+        if(course.getAvailability()>1){
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public String getAvailabilityStatus(){
-        return this.availabilityStatus;
+    public void findCourse(LinkedList<Course> courses) {
+        Scanner scanner = new Scanner(System.in);
+        try {
+            logger.info("Insert course ID");
+            Course course = new Course(scanner.nextInt());
+            if (courses.contains(course)) {
+                Course coursefinded = courses.get(courses.indexOf(course));
+                if (coursefinded.getAvailability() > 0) {
+                    logger.info("The Course is available");
+                    logger.info("The course quota is: " + coursefinded.getAvailability());
+                    scanner.close();
+                } else {
+                    logger.info("The Course is completed");
+                    scanner.close();
+                }
+            } else {
+                logger.info("The id Course doesn't exist");
+                scanner.close();
+            }
+        } catch (InputMismatchException e) {
+            logger.error("The course id must be a number");
+            logger.info("The program keeps working...");
+        } finally {
+            scanner.close();
+        }
+
+    }
+
+    public void getCourseCost(LinkedList<Course> courses) {
+        Scanner scanner = new Scanner(System.in);
+        try {
+            logger.info("Insert course ID");
+            Course course = new Course(scanner.nextInt());
+            if (courses.contains(course)) {
+                Course coursefind = courses.get(courses.indexOf(course));
+                logger.info("The course: " + coursefind.getName() + " has the cost: u$d " + coursefind.getCost());
+            } else {
+                logger.info("The course doesn't exist");
+            }
+        } catch (InputMismatchException e) {
+            logger.error("The course id must be a number");
+            logger.info("The program keeps working...");
+        } finally {
+            scanner.close();
+        }
+    }
+
+    public void getCourseSubjects(LinkedList<Course> courses) {
+        Scanner scanner = new Scanner(System.in);
+        try {
+            logger.info("Insert course ID");
+            Course course = new Course(scanner.nextInt());
+            if (courses.contains(course)) {
+                Course coursefinded = courses.get(courses.indexOf(course));
+                logger.info(coursefinded.getSubjects());
+            } else {
+                logger.info("The id Course doesn't exist");
+            }
+        } catch (InputMismatchException e) {
+            logger.error("The course id must be a number");
+            logger.info("The program keeps working...");
+        } finally {
+            scanner.close();
+        }
+    }
+
+    public static void getCostCourse(Course course){
+        Consumer<Course> consumer = (x) -> {
+            logger.info("The course: " + x.getName() + " has a cost of : u$d " + x.getCost());
+        };
+        consumer.accept(course);
+    }
+
+    public static void isStudentEnroll(Student student, Course course){
+        BiConsumer<Student, Course> biConsumer = (x, y) -> {
+            if(y.getStudents().contains(x)){
+                logger.info("The student: " + x.getName() + " " + x.getLastname() + " is enroll to: " + y.getName() + " course");
+            } else {
+                logger.info("The student is not enroll in any course");
+            }
+        };
+        biConsumer.accept(student,course);
     }
 
     @Override

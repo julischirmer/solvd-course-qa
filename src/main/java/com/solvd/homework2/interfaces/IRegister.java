@@ -9,5 +9,7 @@ public interface IRegister {
 
     void modify();
 
+    void setAccess();
+
 
 }

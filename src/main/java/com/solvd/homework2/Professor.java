@@ -1,12 +1,11 @@
 package com.solvd.homework2;
 
 import com.solvd.homework2.exceptions.InvalidSalary;
-import com.solvd.homework2.interfaces.ISalaryBonus;
+import com.solvd.homework2.functionalInterfaces.ISalaryBonus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public final class Professor extends Person {
-    private final static Logger console = LogManager.getLogger(Fee.class.getName());
     private double salary;
 
     public Professor(int dni, String name, String lastname, double salary) {
@@ -33,13 +32,17 @@ public final class Professor extends Person {
 
     }
 
-    public void increaseSalary(){
-        console.info("Insert the amount of u$d to increase: ");
-        int bonus = 100;
-        ISalaryBonus increase = (total) -> this.salary = this.salary + Integer.valueOf(total.toString());
+    public void increaseSalary(double bonus){
+        ISalaryBonus<Double> increase = (total) -> this.salary = this.salary + bonus;
         increase.increaseSalary(bonus);
     }
 
+
+
+    @Override
+    public void getDegree() {
+        System.out.println("This is an abstract method of Professor");
+    }
 
 
     @Override
@@ -50,10 +53,5 @@ public final class Professor extends Person {
                 ", last name=" + this.getLastname() +
                 ", salary=" + this.getSalary() +
                 '}';
-    }
-
-    @Override
-    public void getDegree() {
-        System.out.println("This is an abstract method of Professor");
     }
 }

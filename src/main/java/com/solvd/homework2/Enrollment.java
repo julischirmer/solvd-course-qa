@@ -1,17 +1,32 @@
 package com.solvd.homework2;
 
-import com.solvd.homework2.enums.Grade;
 import com.solvd.homework2.interfaces.IRegister;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-public class Enrollment implements IRegister {
+import java.util.LinkedList;
+import java.util.Objects;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
+public class Enrollment {
+    final Logger logger = LogManager.getLogger(Enrollment.class.getName());
     private int idEnrollment;
     private Student student;
-    private String grade = null;
+    private Course course;
 
-    public Enrollment(int id, Student student) {
+    private int count = 0;
+
+    public Enrollment(int id, Student student, Course course) {
         setIdEnrollment(id);
         setStudent(student);
+        if(Course.isTheCourseAvailable(course)){
+            setCourse(course);
+            countStudentsEnroll();
+        } else {
+            logger.error("The course is not available");
+        }
+
     }
 
     public int getIdEnrollment() {
@@ -30,36 +45,38 @@ public class Enrollment implements IRegister {
         this.student = student;
     }
 
-    public void setGrade(String grade){
-        this.grade = Grade.valueOf(grade).getGrade();
+    public Course getCourse() {
+        return course;
     }
 
-    public String getGrade(){
-        return this.grade;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
-
-    @Override
-    public void create() {
-
+    public void countStudentsEnroll(){
+        Consumer<Integer> amount = (x) -> count++;
+        amount.accept(count);
     }
 
-    @Override
-    public void delete() {
-
-    }
-
-    @Override
-    public void modify() {
-
-    }
 
     @Override
     public String toString() {
         return "Enrollment{" +
                 "idEnrollment=" + idEnrollment +
                 ", student=" + student +
-                ", grade='" + grade + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Enrollment that = (Enrollment) o;
+        return idEnrollment == that.idEnrollment;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idEnrollment);
     }
 }

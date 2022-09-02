@@ -1,15 +1,22 @@
 package com.solvd.homework2;
 
-import java.util.LinkedList;
+import com.solvd.homework2.interfaces.IData;
+import org.apache.commons.lang3.StringUtils;
 
-public class University {
+import java.util.LinkedList;
+import java.util.function.LongFunction;
+
+public class University implements IData {
     private String name;
     private String location;
-    private LinkedList<Course> courses = new LinkedList<>();
 
-    public University(String name, LinkedList<Course> courses) {
+    private String countryResidence;
+
+    private LinkedList<Student> attendingStudents;
+
+    public University(String name, String location) {
         this.setName(name);
-        this.setCourses(courses);
+        this.setLocation(location);
     }
 
     public String getName() {
@@ -28,33 +35,26 @@ public class University {
         this.location = location;
     }
 
-    public LinkedList<Course> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(LinkedList<Course> courses) {
-        this.courses = courses;
-    }
-
-    public void getCoursesSize(LinkedList<Course> courses) {
-        System.out.println("The number of available courses are" + courses.size());
-    }
-
-    public void addCourse(Course course) {
-        this.courses.add(course);
-    }
-
-    public void removeCourse(Course course) {
-        this.courses.remove(course); // VER
-    }
-
-
 
     @Override
     public String toString() {
         return "\nUniversity{" +
                 "universityname='" + name + '\'' +
-                ", courses=" + courses +
                 '}';
+    }
+
+    @Override
+    public void setCountryResidence(String country) {
+        this.countryResidence = countryResidence;
+    }
+
+    @Override
+    public String getCountryResidence() {
+        if(this.getName() == ""){
+
+        } else {
+            return "No tiene un pais de residencia cargado";
+        }
+        return null;
     }
 }

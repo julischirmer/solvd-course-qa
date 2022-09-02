@@ -1,7 +1,6 @@
 package com.solvd.homework2.generics;
 
 public class Node<T> {
-
     private T data;
     private Node nextNode;
 

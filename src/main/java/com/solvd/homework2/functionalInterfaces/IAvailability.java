@@ -1,5 +1,5 @@
-package com.solvd.homework2.interfaces;
+package com.solvd.homework2.functionalInterfaces;
 @FunctionalInterface
-public interface IAvailability {
-    int availability(int total, int enroll);
+public interface IAvailability<U,R> {
+    R availability(U total, U enroll);
 }

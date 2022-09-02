@@ -4,14 +4,12 @@ import com.solvd.homework2.generics.CustomLinkedList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Subject<T> {
-    private static Logger console = LogManager.getLogger(Subject.class.getName());
+import java.util.LinkedList;
+
+public class Subject {
     private int idSubject;
     private String name;
-    private String subjectDesc;
-    private int weekHours;
-    private int totalHours;
-    private CustomLinkedList<Professor> proffesors;
+    private LinkedList<Professor> professors;
 
     public Subject(int idSubject) {
         this.setIdSubject(idSubject);
@@ -21,7 +19,6 @@ public class Subject<T> {
         this.setIdSubject(idSubject);
         this.setName(name);
     }
-
 
 
     public int getIdSubject() {
@@ -40,28 +37,8 @@ public class Subject<T> {
         this.name = name;
     }
 
-    public String getSubjectDesc() {
-        return subjectDesc;
-    }
-
-    public void setSubjectDesc(String subjectDesc) {
-        this.subjectDesc = subjectDesc;
-    }
-
-    public int getWeekHours() {
-        return weekHours;
-    }
-
-    public void setWeekHours(int weekHours) {
-        this.weekHours = weekHours;
-    }
-
-    public int getTotalHours() {
-        return totalHours;
-    }
-
-    public void setTotalHours(int totalHours) {
-        this.totalHours = totalHours;
+    public void addProfessor(Professor professor) {
+        this.professors.addLast(professor);
     }
 
 
@@ -69,10 +46,7 @@ public class Subject<T> {
     public String toString() {
         return "\nSubject{" +
                 "idsubject=" + idSubject +
-                ", name='" + name + '\'' +
-                ", subjectdesc='" + subjectDesc + '\'' +
-                ", week_hours=" + weekHours +
-                ", total_hours=" + totalHours +
+                ", name='" + name +
                 '}';
     }
 }

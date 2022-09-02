@@ -1,18 +1,24 @@
 package com.solvd.homework2.enums;
 
 public enum UserAccess {
-    ADMIN ("Admin"),
-    STUDENT ("Student"),
-    PROFESSOR ("Professor");
+    ADMIN, STUDENT, PROFESSOR;
 
-    private String userAccess;
-    UserAccess(String userAccess){
-        this.userAccess = userAccess;
+    public String getGrade() {
+        String data = "";
+        switch (this) {
+            case ADMIN:
+                data = "Admin";
+                break;
+            case STUDENT:
+                data = "Merit";
+                break;
+            case PROFESSOR:
+                data = "Pass";
+                break;
+            default:
+                data = null;
+        }
+        return data;
     }
-
-    public String getUserAccess(){
-        return userAccess;
-    }
-
 
 }

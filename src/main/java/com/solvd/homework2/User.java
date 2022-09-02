@@ -1,8 +1,9 @@
 package com.solvd.homework2;
 
 import com.solvd.homework2.enums.UserAccess;
+import com.solvd.homework2.interfaces.IRegister;
 
-public class User {
+public class User implements IRegister {
 
     private String username;
     private String password;
@@ -23,12 +24,8 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    public String getUserAccess(){
-        return this.userAccess;
-    }
-    public void setUserAccess(String userAccess){
-        this.userAccess = UserAccess.valueOf(userAccess).getUserAccess();
-    }
+
+
 
     @Override
     public String toString() {
@@ -36,5 +33,25 @@ public class User {
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+    @Override
+    public void create() {
+
+    }
+
+    @Override
+    public void delete() {
+
+    }
+
+    @Override
+    public void modify() {
+
+    }
+
+    @Override
+    public void setAccess() {
+
     }
 }

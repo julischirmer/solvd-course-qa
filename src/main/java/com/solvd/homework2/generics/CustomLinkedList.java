@@ -3,7 +3,6 @@ package com.solvd.homework2.generics;
 public class CustomLinkedList<U> {
     private Node head;
 
-
     public CustomLinkedList() {
 
     }

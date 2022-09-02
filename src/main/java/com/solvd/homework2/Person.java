@@ -4,10 +4,10 @@ import com.solvd.homework2.exceptions.AgeRestriction;
 import com.solvd.homework2.exceptions.InvalidMailException;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Objects;
 
 public abstract class Person {
-
 
     private int dni;
     private String name;
@@ -44,13 +44,13 @@ public abstract class Person {
         return mail;
     }
 
-    public void setMail(String mail) throws InvalidMailException {
+
+    public final void setMail(String mail) throws InvalidMailException {
         if (mail.length() > 10) {
             this.mail = mail;
         } else {
-            throw new InvalidMailException("The email have be more than 10 characters");
+            throw new InvalidMailException("The email must have more than 10 characters");
         }
-
     }
 
     public LocalDate getBirthday() {
@@ -58,15 +58,12 @@ public abstract class Person {
     }
 
     public void setBirthday(LocalDate birthday) throws AgeRestriction {
-        LocalDate now = LocalDate.now();
-        int age = (now.getYear() - birthday.getYear());
+        int age = Period.between(birthday, LocalDate.now()).getYears();;
         if (age >= 18) {
             this.birthday = birthday;
         } else {
-            throw new AgeRestriction("You have to be more than 18 years old");
+            throw new AgeRestriction("You must have more than 18 years old");
         }
-
-
     }
 
     public abstract void getDegree();
