@@ -1,4 +1,4 @@
-package com.solvd.homework2.connectionPool;
+package com.solvd.homework4;
 
 public class Connection {
 }

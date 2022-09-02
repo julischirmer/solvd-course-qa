@@ -4,5 +4,4 @@ Java is a high-level, class-based, object-oriented programming language that is 
    Java code can run on all platforms that support Java without the need to recompile.
     Java applications are typically compiled to bytecode that can run on any Java virtual machine (JVM)
     regardless of the underlying computer architecture. The syntax of Java is similar to C and C++, but has fewer
-     low-level facilities than either of them.
-Unique words in the text: 46 
+     low-level facilities than either of them.Unique words in the text: 46 
