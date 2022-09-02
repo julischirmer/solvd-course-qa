@@ -9,7 +9,6 @@ import java.util.function.LongFunction;
 public class University implements IData {
     private String name;
     private String location;
-
     private String countryResidence;
 
     private LinkedList<Student> attendingStudents;
@@ -36,12 +35,6 @@ public class University implements IData {
     }
 
 
-    @Override
-    public String toString() {
-        return "\nUniversity{" +
-                "universityname='" + name + '\'' +
-                '}';
-    }
 
     @Override
     public void setCountryResidence(String country) {
@@ -50,11 +43,20 @@ public class University implements IData {
 
     @Override
     public String getCountryResidence() {
-        if(this.getName() == ""){
-
+        if(this.getCountryResidence().isEmpty()){
+            return "The University hasn't a Country Residence";
         } else {
-            return "No tiene un pais de residencia cargado";
+            return "The country of residence of the University is:" + this.getCountryResidence();
         }
-        return null;
+    }
+
+    @Override
+    public String toString() {
+        return "University{" +
+                "name='" + name + '\'' +
+                ", location='" + location + '\'' +
+                ", countryResidence='" + countryResidence + '\'' +
+                ", attendingStudents=" + attendingStudents +
+                '}';
     }
 }

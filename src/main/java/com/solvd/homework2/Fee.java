@@ -1,12 +1,14 @@
 package com.solvd.homework2;
 
 
+import com.solvd.homework2.exceptions.InvalidCourseCostException;
 import com.solvd.homework2.exceptions.InvalidMonthNumberException;
 import com.solvd.homework2.functionalInterfaces.IDiscount;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
+import java.util.Scanner;
 
 public final class Fee {
 
@@ -58,39 +60,40 @@ public final class Fee {
         }
     }
 
-/*    public Fee createFee() throws InvalidMonthNumberException, InvalidCourseCostException {
+    public void createFee(Student student, Course course) throws InvalidMonthNumberException {
         Scanner scanner = new Scanner(System.in);
-        console.info("Insert student dni");
-        int dni = scanner.nextInt();
-        console.info("Insert number month 0 January - 11 December");
-        int month = scanner.nextInt();
-        int pay = 2;
-        boolean isPay = false;
-        while (pay != 0 && pay != 1) {
-            console.info("is Pay? 1: true 0: false");
-            pay = scanner.nextInt();
-            if (pay == 0) {
-                isPay = false;
-            } else if (pay == 1) {
-                isPay = true;
-            } else {
-                console.info("The answer must be 0 or 1");
+        try {
+            logger.info("Insert student dni");
+            int dni = scanner.nextInt();
+            logger.info("Insert number month 0 January - 11 December");
+            int month = scanner.nextInt();
+            int pay = 2;
+            boolean isPay = false;
+            while (pay != 0 && pay != 1) {
+                logger.info("is Pay? 1: true 0: false");
+                pay = scanner.nextInt();
+                if (pay == 0) {
+                    isPay = false;
+                } else if (pay == 1) {
+                    isPay = true;
+                } else {
+                    logger.info("The answer must be 0 or 1");
+                }
             }
-        }
-        Student student = new Student(dni);
-
-        console.info("Insert id course");
+        logger.info("Insert id course");
         int idcourse = scanner.nextInt();
-        console.info("Insert course cost");
+        logger.info("Insert course cost");
         double price = scanner.nextDouble();
-        console.info("Insert course name");
+        logger.info("Insert course name");
         String name = scanner.next();
-        Course course = new Course();
         Fee fee = new Fee(student,month, isPay,course);
-        System.out.println(fee);
-        return fee;
-
-    }*/
+        logger.info(fee);
+        } catch (InvalidMonthNumberException e) {
+            logger.error("The Month must be an int between 0 to 11");
+        } finally {
+            scanner.close();
+        }
+    }
 
     public int getMonthFee() {
         return month;
@@ -127,8 +130,13 @@ public final class Fee {
 
     @Override
     public String toString() {
-        return "Fee{month=" + month +
+        return "Fee{" +
+                "logger=" + logger +
+                ", month=" + month +
                 ", isPay=" + isPay +
+                ", student=" + student +
+                ", costPerMonth=" + costPerMonth +
+                ", course=" + course +
                 '}';
     }
 }

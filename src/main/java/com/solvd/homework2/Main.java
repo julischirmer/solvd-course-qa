@@ -1,10 +1,13 @@
 package com.solvd.homework2;
 
 import com.solvd.homework2.enums.DepartmentType;
+import com.solvd.homework2.enums.Grade;
 import com.solvd.homework2.exceptions.InvalidCourseCostException;
+import com.solvd.homework2.generics.CustomLinkedList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.*;
@@ -24,13 +27,18 @@ public class Main {
         Professor professor1 = new Professor(2000, "Juan", "Perez", 1000);
         Professor professor2 = new Professor(2001, "Miguel", "Adriano", 1300);
 
-        DepartmentType tech = DepartmentType.TECHNOLOGY;
+        Department Tech = new Department(001,DepartmentType.TECHNOLOGY);
 
-        Course IA = new Course(555, 12000, "Artificial Intelligent", tech);
-        Course QA = new Course(556, 10000, "QA Testing Automation", tech);
+        Course IA = new Course(555, 12000, "Artificial Intelligent", Tech);
+        Course QA = new Course(556, 10000, "QA Testing Automation", Tech);
 
-        Subject java = new Subject(110000, "Java Language");
-        Subject SQL = new Subject(110001, "MySQL");
+        CustomLinkedList<Professor> professors = new CustomLinkedList<>();
+
+        professors.insert(professor1);
+        professors.insert(professor2);
+
+        Subject java = new Subject(110000, "Java Language",professors);
+        Subject SQL = new Subject(110001, "MySQL",professors);
 
         QA.addSubject(java);
         QA.addSubject(SQL);
@@ -43,12 +51,16 @@ public class Main {
         Enrollment enrol = new Enrollment(00001, student1, QA);
         Enrollment enrol2 = new Enrollment(00001, student2, IA);
 
-        Exam QAexam = new Exam(0002, java);
+        Exam QAexam = new Exam(0002, LocalDate.parse("2022-09-02") ,java);
+
         LinkedList<Student> students = new LinkedList<>();
         students.add(student1);
         students.add(student2);
 
         QAexam.setStudents(students);
+
+        QAexam.setGrade(student1, java, Grade.PASS);
+        QAexam.setGrade(student2, java, Grade.FAIL);
 
         // Streams
         List<String> names = QAexam.getStudentsNames();
@@ -76,25 +88,12 @@ public class Main {
         Course.getCostCourse(QA);
         Course.isStudentEnroll(student1,IA);
 
-
-
-
-/*
-        Function<Department, Integer> funct = (x) -> {
-          return y;
-        };
-*/
-
-
-
-
         // Scholarship discount example
-/*
         student1.setAverageMark(10);
         Fee fee = new Fee(student1,1,true,QA);
         fee.DiscountScholarship(student1,QA);
         fee.isUpToday(student1,fee);
-*/
+
 
 
 

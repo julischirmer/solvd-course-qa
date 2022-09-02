@@ -1,7 +1,5 @@
 package com.solvd.homework2;
 
-import com.solvd.homework2.enums.CourseStatus;
-import com.solvd.homework2.enums.DepartmentType;
 import com.solvd.homework2.exceptions.InvalidCourseCostException;
 import com.solvd.homework2.enums.CourseAvailability;
 import com.solvd.homework2.functionalInterfaces.IAvailability;
@@ -22,7 +20,7 @@ public class Course {
     private final int total = 150;
     private int idCourse;
     private String name;
-    private DepartmentType departmentType;
+    private Department department;
     private LinkedList<Subject> subjects = new LinkedList<>();
     private LinkedList<Student> students = new LinkedList<>();
     private double cost;
@@ -32,11 +30,11 @@ public class Course {
 
     }
 
-    public Course(int idcourse, double price, String name, DepartmentType departmentType) throws InvalidCourseCostException {
+    public Course(int idcourse, double price, String name, Department department) throws InvalidCourseCostException {
         this.setIdCourse(idcourse);
         this.setName(name);
         this.setCost(price);
-        this.departmentType = departmentType;
+        this.setDepartment(department);
     }
 
     public Course(int idCourse) {
@@ -71,12 +69,12 @@ public class Course {
         }
     }
 
-    public DepartmentType getDepartmentType() {
-        return departmentType;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setDepartmentType(DepartmentType departmentType) {
-        this.departmentType = departmentType;
+    public void setDepartment(Department departmentType) {
+        this.department = department;
     }
 
     public int getAvailability(){

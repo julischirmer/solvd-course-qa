@@ -1,23 +1,23 @@
 package com.solvd.homework2;
 
 import com.solvd.homework2.generics.CustomLinkedList;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.LinkedList;
 
 public class Subject {
     private int idSubject;
     private String name;
-    private LinkedList<Professor> professors;
+    private CustomLinkedList<Professor> professors;
 
     public Subject(int idSubject) {
         this.setIdSubject(idSubject);
     }
 
-    public Subject(int idSubject, String name) {
+    public Subject(int idSubject, String name, CustomLinkedList<Professor> professors) {
         this.setIdSubject(idSubject);
         this.setName(name);
+        this.setProfessors(professors);
+
     }
 
 
@@ -38,9 +38,16 @@ public class Subject {
     }
 
     public void addProfessor(Professor professor) {
-        this.professors.addLast(professor);
+        this.professors.insert(professor);
     }
 
+    public CustomLinkedList<Professor> getProfessors() {
+        return professors;
+    }
+
+    public void setProfessors(CustomLinkedList<Professor> professors) {
+        this.professors = professors;
+    }
 
     @Override
     public String toString() {

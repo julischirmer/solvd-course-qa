@@ -106,7 +106,7 @@ public class Student extends Person implements IData {
         this.countryResidence = countryName;
     }
 
-    @Override // VER BIEN
+    @Override
     public String getCountryResidence(){
         String data = "";
         if(this.getName().equals("")){

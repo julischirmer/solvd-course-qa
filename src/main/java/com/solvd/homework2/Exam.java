@@ -6,13 +6,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-import java.util.function.BiPredicate;
 
 public class Exam {
     public final Logger logger = LogManager.getLogger(Exam.class.getName());
@@ -25,8 +23,8 @@ public class Exam {
     private Grade grade = null;
 
 
-    public Exam(int examnumber, Subject subject) {
-
+    public Exam(int examnumber, LocalDate examdate ,Subject subject) {
+        this.setExamnumber(examnumber);
         this.setExamdate(examdate);
         this.setSubject(subject);
     }
@@ -51,7 +49,7 @@ public class Exam {
         return professors;
     }
 
-    public void newProffesor() {
+    public void addProffesor() {
         addProfessor.accept(new Professor(111,"Carlos", "Daniel", 1000));
     }
 
@@ -69,6 +67,18 @@ public class Exam {
 
     public void setStudents(LinkedList<Student> students) {
         this.students = students;
+    }
+
+    public void setGrade(Student student, Subject subject ,Grade grade){
+        if(this.students.contains(student) && this.subject.equals(subject)){
+            this.grade = grade;
+        } else {
+            logger.info("The student does not exist in the exam");
+        }
+    }
+
+    public Grade getGrade(){
+        return this.grade;
     }
 
     Consumer<Professor> addProfessor = (Professor) -> {
@@ -115,13 +125,6 @@ public class Exam {
         studentsnames.stream().distinct().forEach(x->logger.info(x));
     }
 
-    // util.function
-
-    public void BiPredicate(){
-        BiConsumer<Integer,Integer> addTwo = (x, y) -> logger.info(x+y);
-        addTwo.accept(5,5);
-    }
-
 
     @Override
     public String toString() {
@@ -131,4 +134,6 @@ public class Exam {
                 ", professors=" + professors +
                 '}';
     }
+
+
 }
