@@ -1,5 +1,4 @@
 .idea/
-target/
+target
 propertieslogs.log
-resources/helper.txt
 Hometask.iml
