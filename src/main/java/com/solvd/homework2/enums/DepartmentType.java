@@ -2,7 +2,7 @@ package com.solvd.homework2.enums;
 
 public enum DepartmentType {
     SCIENCE("Science"),
-    ART("Art"),
+    MEDICINE("Medicine"),
     ECONOMIC("Economic"),
     ENGINEERING("Engineering"),
     LAW ("Law");

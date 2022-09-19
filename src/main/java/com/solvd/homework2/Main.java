@@ -40,6 +40,7 @@ public class Main {
         Department law = new Department(001, DepartmentType.LAW);
         Department science = new Department(002, DepartmentType.SCIENCE);
         Department econ = new Department(003, DepartmentType.ECONOMIC);
+        Department medicine = new Department(004,DepartmentType.MEDICINE);
 
         // Creating Specialties
         Specialty lawyer = new Specialty(22, "Lawyer", law);
@@ -96,8 +97,6 @@ public class Main {
         // Getting grades per student dni
         harvard.getGradesPerStudent(111);
         harvard.getGradesPerStudent(112);
-
-
 
         // Subjects for student enroll
         logger.info("Subjects for student are: " + harvard.getSubjectsPerStudent(111));
