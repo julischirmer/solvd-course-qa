@@ -1,5 +1,6 @@
-package com.solvd.homework2;
+package com.solvd.homework2.reflection;
 
+import com.solvd.homework2.Student;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

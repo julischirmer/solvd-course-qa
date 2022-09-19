@@ -20,21 +20,22 @@ public class Course {
     private final int total = 150;
     private int idCourse;
     private String name;
-    private Department department;
+    private Specialty specialty;
     private LinkedList<Subject> subjects = new LinkedList<>();
     private LinkedList<Student> students = new LinkedList<>();
     private double cost;
+
     private CourseAvailability courseAvailability;
 
     public Course() {
 
     }
 
-    public Course(int idcourse, double price, String name, Department department) throws InvalidCourseCostException {
+    public Course(int idcourse, double price, String name, Specialty specialty) throws InvalidCourseCostException {
         this.setIdCourse(idcourse);
         this.setName(name);
         this.setCost(price);
-        this.setDepartment(department);
+        this.setSpecialty(specialty);
     }
 
     public Course(int idCourse) {
@@ -69,16 +70,16 @@ public class Course {
         }
     }
 
-    public Department getDepartment() {
-        return department;
+
+    public Specialty getSpecialty() {
+        return specialty;
     }
 
-    public void setDepartment(Department departmentType) {
-        this.department = department;
+    public void setSpecialty(Specialty specialty) {
+        this.specialty = specialty;
     }
 
-    public int getAvailability(){
-        IAvailability<Integer,Integer> availability = (totalquota, studentsEnroll) -> totalquota - studentsEnroll;
+    public int getAvailability(IAvailability<Integer,Integer> availability){
         return availability.availability(this.total, students.size());
     }
 
@@ -91,7 +92,7 @@ public class Course {
     }
 
     public void addStudent(Student student){
-        students.addLast(student);
+        students.add(student);
         int cant = this.total - students.size();
         if(cant > 1){
             this.courseAvailability = CourseAvailability.AVAILABLE;
@@ -122,7 +123,9 @@ public class Course {
     }
 
     public static boolean isTheCourseAvailable (Course course){
-        if(course.getAvailability()>1){
+        IAvailability<Integer,Integer> availability =
+                (totalquota, studentsEnroll) -> totalquota - studentsEnroll;
+        if(course.getAvailability(availability)>1){
             return true;
         } else {
             return false;
@@ -131,14 +134,16 @@ public class Course {
 
     public void findCourse(LinkedList<Course> courses) {
         Scanner scanner = new Scanner(System.in);
+        IAvailability<Integer,Integer> availability =
+                (totalquota, studentsEnroll) -> totalquota - studentsEnroll;
         try {
             logger.info("Insert course ID");
             Course course = new Course(scanner.nextInt());
             if (courses.contains(course)) {
                 Course coursefinded = courses.get(courses.indexOf(course));
-                if (coursefinded.getAvailability() > 0) {
+                if (coursefinded.getAvailability(availability) > 0) {
                     logger.info("The Course is available");
-                    logger.info("The course quota is: " + coursefinded.getAvailability());
+                    logger.info("The course quota is: " + coursefinded.getAvailability(availability));
                     scanner.close();
                 } else {
                     logger.info("The Course is completed");

@@ -1,7 +1,7 @@
 package com.solvd.homework2;
 
 import com.solvd.homework2.exceptions.InvalidMailException;
-import com.solvd.homework2.interfaces.IData;
+import com.solvd.homework2.interfaces.ICountryResidence;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,13 +11,11 @@ import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Student extends Person implements IData {
+public class Student extends Person implements ICountryResidence {
 
     private final Logger logger = LogManager.getLogger(Student.class.getName());
     private double averagemark;
-
     private String countryResidence;
-
     public double getAverageMark() {
         return averagemark;
     }

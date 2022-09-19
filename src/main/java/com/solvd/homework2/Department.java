@@ -23,8 +23,8 @@ public class Department {
     }
 
     public Department(int idDep, DepartmentType typeDepartment){
-        this.idDepartment = idDep;
-        this.typeDepartment = typeDepartment;
+       setIdDepartment(idDep);
+       setTypeDepartment(typeDepartment);
     }
 
 }

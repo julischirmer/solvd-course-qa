@@ -1,10 +1,8 @@
 package com.solvd.homework2.interfaces;
 
 import com.solvd.homework2.Student;
-import java.util.Collection;
+import com.solvd.homework2.functionalInterfaces.IDiscount;
 
-public interface ICheckUser<T extends Student, K extends Collection> {
-    default T checkUser(int id, K peopleList) {
-        return null;
-    }
+public interface IDiscountScholarship {
+    void DiscountScholarship(Student student, IDiscount disc);
 }

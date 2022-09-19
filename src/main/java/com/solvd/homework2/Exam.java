@@ -6,8 +6,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -16,11 +18,10 @@ public class Exam {
     public final Logger logger = LogManager.getLogger(Exam.class.getName());
     private LocalDate examdate;
     private int examnumber;
-    private LinkedList<Professor> professors;
+    private LinkedList<Professor> professors = new LinkedList<>();
     private Subject subject;
-    private LinkedList<Student> students;
-
-    private Grade grade = null;
+    private LinkedList<Student> students = new LinkedList<>();
+    Map<Integer,Grade> grades = new HashMap<>();
 
 
     public Exam(int examnumber, LocalDate examdate ,Subject subject) {
@@ -49,8 +50,8 @@ public class Exam {
         return professors;
     }
 
-    public void addProffesor() {
-        addProfessor.accept(new Professor(111,"Carlos", "Daniel", 1000));
+    public void addProffesor(Professor professor) {
+        addProfessor.accept(professor);
     }
 
     public void setSubject (Subject subject){
@@ -65,21 +66,18 @@ public class Exam {
         return students;
     }
 
-    public void setStudents(LinkedList<Student> students) {
-        this.students = students;
-    }
 
-    public void setGrade(Student student, Subject subject ,Grade grade){
+/*    public void setGrade(Student student, Subject subject ,Grade grade){
         if(this.students.contains(student) && this.subject.equals(subject)){
             this.grade = grade;
         } else {
             logger.info("The student does not exist in the exam");
         }
-    }
+    }*/
 
-    public Grade getGrade(){
+ /*   public Grade getGrade(){
         return this.grade;
-    }
+    }*/
 
     Consumer<Professor> addProfessor = (Professor) -> {
         logger.info(Professor);
@@ -92,8 +90,9 @@ public class Exam {
     };
 
     public void addStudent(Student student){
-        this.students.add(student);
+        addStudent.accept(student);
     }
+
     public List<String> getStudentsNames (){
         return this.students.stream().map(student -> student.getName()).collect(Collectors.toList());
     }
@@ -129,11 +128,15 @@ public class Exam {
     @Override
     public String toString() {
         return "Exam{" +
-                "examdate=" + examdate +
+                "logger=" + logger +
+                ", examdate=" + examdate +
                 ", examnumber=" + examnumber +
                 ", professors=" + professors +
+                ", subject=" + subject +
+                ", students=" + students +
+                ", grades=" + grades +
+                ", addProfessor=" + addProfessor +
+                ", addStudent=" + addStudent +
                 '}';
     }
-
-
 }

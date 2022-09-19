@@ -1,15 +1,10 @@
 package com.solvd.homework2.interfaces;
 
-public interface IRegister {
+import com.solvd.homework2.Student;
 
+public interface ICalculateTotalCost {
 
-    void create();
-
-    void delete();
-
-    void modify();
-
-    void setAccess();
+    double getTotalCost(Student student);
 
 
 }

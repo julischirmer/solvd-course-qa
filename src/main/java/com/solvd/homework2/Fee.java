@@ -44,21 +44,6 @@ public final class Fee {
         }
     }
 
-    public void DiscountScholarship(Student student, Course course){
-        if (student.getAverageMark()>9){
-            IDiscount disc = () -> {
-                logger.info("Congrats! You have more than 9 in your average mark");
-                logger.info("You will have 25% of discount in your course");
-                double newCost = course.getCost()*0.75;
-                double newFee = newCost/12;
-                logger.info("Your new monthly fee is: " + newFee);
-            };
-            disc.goodAverageMarkDiscount();
-        } else {
-            logger.info("You don't have an average mark greater than 9" +
-                    "so you can't have an scholarship");
-        }
-    }
 
     public void createFee(Student student, Course course) throws InvalidMonthNumberException {
         Scanner scanner = new Scanner(System.in);

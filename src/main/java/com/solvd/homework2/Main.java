@@ -3,9 +3,12 @@ package com.solvd.homework2;
 import com.solvd.homework2.enums.DepartmentType;
 import com.solvd.homework2.enums.Grade;
 import com.solvd.homework2.exceptions.InvalidCourseCostException;
+import com.solvd.homework2.functionalInterfaces.IDiscount;
+import com.solvd.homework2.functionalInterfaces.ISalaryBonus;
 import com.solvd.homework2.generics.CustomLinkedList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.Core;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -17,159 +20,102 @@ public class Main {
 
     public static void main(String[] args) throws InvalidCourseCostException {
 
-        LinkedList<Course> courses = new LinkedList<>();
-
+        // Creating University
         University harvard = new University("Harvard", "Cambridge, Massachusetts");
 
-        Student student1 = new Student(111, "Julian", 6.30);
+        // Creating Students
+        Student student1 = new Student(111, "Julian", 10);
         Student student2 = new Student(112, "Carlos", 7.40);
 
+        // Creating Professors
         Professor professor1 = new Professor(2000, "Juan", "Perez", 1000);
         Professor professor2 = new Professor(2001, "Miguel", "Adriano", 1300);
 
-        Department Tech = new Department(001,DepartmentType.TECHNOLOGY);
+        harvard.addStudent(student1);
+        harvard.addStudent(student2);
+        harvard.addProfessor(professor1);
+        harvard.addProfessor(professor2);
 
-        Course IA = new Course(555, 12000, "Artificial Intelligent", Tech);
-        Course QA = new Course(556, 10000, "QA Testing Automation", Tech);
+        // Creating Departments
+        Department law = new Department(001, DepartmentType.LAW);
+        Department science = new Department(002, DepartmentType.SCIENCE);
+        Department econ = new Department(003, DepartmentType.ECONOMIC);
 
-        CustomLinkedList<Professor> professors = new CustomLinkedList<>();
+        // Creating Specialties
+        Specialty lawyer = new Specialty(22, "Lawyer", law);
+        Specialty doctor = new Specialty(23, "Doctor", science);
+        Specialty accountant = new Specialty(24, "Accountant", econ);
 
-        professors.insert(professor1);
-        professors.insert(professor2);
+        // Creating Subjects
+        Subject math = new Subject(001, "Mathematics 1", accountant);
+        Subject neurology = new Subject(002, "Neurology", doctor);
+        Subject history1 = new Subject(003, "History 1", lawyer);
 
-        Subject java = new Subject(110000, "Java Language",professors);
-        Subject SQL = new Subject(110001, "MySQL",professors);
+        // Creating Courses
+        Course europeanHistory = new Course(11, 500, "European History", lawyer);
+        Course latamHistory = new Course(12, 500, "Latam History", lawyer);
+        Course mathProffesor = new Course(13, 600, "Mathematics Professor", accountant);
 
-        QA.addSubject(java);
-        QA.addSubject(SQL);
+        latamHistory.addSubject(history1);
+        europeanHistory.addSubject(history1);
+        mathProffesor.addSubject(math);
 
-        QA.addStudent(student1);
-        QA.addStudent(student2);
+        harvard.addCourse(europeanHistory);
+        harvard.addCourse(latamHistory);
+        harvard.addCourse(mathProffesor);
 
-        IA.addStudent(student1);
+        europeanHistory.addStudent(student1);
+        latamHistory.addStudent(student1);
 
-        Enrollment enrol = new Enrollment(00001, student1, QA);
-        Enrollment enrol2 = new Enrollment(00001, student2, IA);
+        logger.info("Cost education for student: " + harvard.getTotalCost(student1));
 
-        Exam QAexam = new Exam(0002, LocalDate.parse("2022-09-02") ,java);
+        // Creating Enrollments
+        Enrollment enroll1 = new Enrollment(01, student1, europeanHistory);
+        Enrollment enroll2 = new Enrollment(02, student2, europeanHistory);
 
-        LinkedList<Student> students = new LinkedList<>();
-        students.add(student1);
-        students.add(student2);
+        // Creating history exams
+        Exam historyExam = new Exam(001, LocalDate.parse("2022-08-02"), history1);
+        Exam historyExam2 = new Exam(002, LocalDate.parse("2022-09-02"), history1);
 
-        QAexam.setStudents(students);
-
-        QAexam.setGrade(student1, java, Grade.PASS);
-        QAexam.setGrade(student2, java, Grade.FAIL);
-
-        // Streams
-        List<String> names = QAexam.getStudentsNames();
-        logger.info("To lower case names:");
-        QAexam.toLowerCaseNames(names);
-
-        logger.info("Find Julian name");
-        QAexam.findName(names, "Julian");
-
-        QAexam.countStudents();
-
-        logger.info("names sorted");
-        QAexam.sortedNamesAtoZ(names);
-
-        logger.info("Full names students list: ");
-        logger.info(names);
-        logger.info("Same list with distinct");
-        QAexam.distinctNames(names);
+        // Add Students to each exam
+        historyExam.addStudent(student1);
+        historyExam2.addStudent(student2);
 
 
-        professor1.increaseSalary(150);
-        logger.info("Professors increase salary: u$d " + professor1.getSalary());
+        historyExam.grades.put(student1.getDni(), Grade.FAIL);
+        historyExam2.grades.put(student1.getDni(), Grade.PASS);
 
-        // util Function
-        Course.getCostCourse(QA);
-        Course.isStudentEnroll(student1,IA);
+
+        Exam mathExam = new Exam(003, LocalDate.parse("2022-09-15"), math);
+        mathExam.grades.put(student2.getDni(), Grade.DISTINCTION);
+
+        harvard.addExam(historyExam);
+        harvard.addExam(historyExam2);
+        harvard.addExam(mathExam);
+
+        // Getting grades per student dni
+        harvard.getGradesPerStudent(111);
+        harvard.getGradesPerStudent(112);
+
+
+
+        // Subjects for student enroll
+        logger.info("Subjects for student are: " + harvard.getSubjectsPerStudent(111));
+
+        // Specialty student will learn
+        logger.info("The specialty that student will learn is: " + harvard.getSpecialtyPerStudent(111));
 
         // Scholarship discount example
-        student1.setAverageMark(10);
-        Fee fee = new Fee(student1,1,true,QA);
-        fee.DiscountScholarship(student1,QA);
-        fee.isUpToday(student1,fee);
-
-
-
-
-
-
-
-
-
+        IDiscount disc = () -> {
+            logger.info("Congrats! You have more than 9 in your average mark");
+            logger.info("You will have 25% of discount in your course");
+            double total_cost = harvard.getTotalCost(student1);
+            double newCost = total_cost * 0.75;
+            logger.info("Your new cost is: " + newCost);
+        };
+        harvard.DiscountScholarship(student1, disc);
 
     }
 
 }
-
-/*
-
-public static void lambdaUtils(){
-        lambdaUtilConsumer();
-        longFunction();
-        intToDouble();
-        lambdaUtilPredicated();
-    }
-
-    public static void intToDouble(){
-        // IntToDouble
-        Professor professor = new Professor(1111,"Julian","Perez", 100);
-
-        IntToDoubleFunction toDouble = (dni) -> {
-            return Double.parseDouble(Integer.toString(dni));
-        };
-
-        double dniToDouble = toDouble.applyAsDouble(professor.getDni());
-        console.info(dniToDouble);
-    }
-
-    public static void lambdaUtilConsumer() throws NullPointerException{
-        Exam exam = new Exam(1111, new Subject(1111, "QA Testing"));
-        Consumer<Professor> addProfessor = (Professor) -> {
-            console.info(Professor);
-            exam.getProfessors().addLast(Professor);
-        };
-
-        Professor professorTesting = new Professor(121212,"Carlos","Nicole",1000);
-        addProfessor.accept(professorTesting);
-        console.info(exam.getProfessors());
-    }
-
-    public static void longFunction() {
-        long University1 = 10000;
-        long University2 = 15000;
-        long University3 = 25000;
-        LongFunction longexample = (total) -> {
-            total = University1 + University2 + University3;
-            return total;
-        };
-        long total = 0;
-        long totalStudents = (long) longexample.apply(total);
-        console.info(totalStudents);
-    }
-
-    public static void lambdaUtilPredicated (){
-        Professor miguel = new Professor(2020,"Miguel","Guemez", 1000);
-        Professor juan = new Professor(1515,"Juan", "Belgrano", 2000);
-        BiPredicate professor = (name1, name2) -> {
-            if(name1.equals(name2)){
-                return true;
-            } else {
-                return false;
-            }
-        };
-        boolean answer = professor.test(miguel.getName(),juan.getName());
-        console.info(answer);
-    }
-
-*/
-
-
-
-
 

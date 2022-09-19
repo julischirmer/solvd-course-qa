@@ -1,21 +1,15 @@
 package com.solvd.homework2.enums;
-
 public enum CourseAvailability {
-    AVAILABLE,FULL;
+    AVAILABLE("Available"),
+    FULL("Full");
 
-    public String getCourseAvailability() {
-        String data = "";
-        switch (this) {
-            case AVAILABLE:
-                data = "The course has quota available";
-                break;
-            case FULL:
-                data = "The course is full";
-                break;
-            default:
-                data = null;
-        }
-        return data;
+    private final String availability;
+
+    CourseAvailability(String availability) {
+        this.availability = availability;
     }
 
+    public String getCourseAvailability() {
+        return availability;
+    }
 }

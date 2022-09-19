@@ -1,6 +1,6 @@
 package com.solvd.homework2.interfaces;
 
-public interface IData {
+public interface ICountryResidence {
 
     void setCountryResidence(String country);
 

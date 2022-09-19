@@ -1,13 +1,10 @@
 package com.solvd.homework2;
 
-import com.solvd.homework2.interfaces.IRegister;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.LinkedList;
 import java.util.Objects;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 public class Enrollment {
     final Logger logger = LogManager.getLogger(Enrollment.class.getName());

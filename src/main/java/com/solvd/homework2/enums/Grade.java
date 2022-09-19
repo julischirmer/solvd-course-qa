@@ -2,27 +2,19 @@ package com.solvd.homework2.enums;
 
 public enum Grade {
 
-    DISTINCTION,MERIT,PASS,FAIL;
+    DISTINCTION("Distinction"),
+    MERIT("Merit"),
+    PASS("Pass"),
+    FAIL("Fail");
+
+    private final String grade;
+
+    Grade(String grade){
+        this.grade = grade;
+    }
 
     public String getGrade() {
-        String data = "";
-        switch (this) {
-            case DISTINCTION:
-                data = "Distinction";
-                break;
-            case MERIT:
-                data = "Merit";
-                break;
-            case PASS:
-                data = "Pass";
-                break;
-            case FAIL:
-                data = "Fail";
-                break;
-            default:
-                data = null;
-        }
-        return data;
+        return grade;
     }
 
 }

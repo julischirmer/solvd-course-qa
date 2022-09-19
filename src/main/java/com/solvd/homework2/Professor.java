@@ -32,8 +32,7 @@ public final class Professor extends Person {
 
     }
 
-    public void increaseSalary(double bonus){
-        ISalaryBonus<Double> increase = (total) -> this.salary = this.salary + bonus;
+    public void increaseSalary(double bonus,ISalaryBonus<Double> increase){
         increase.increaseSalary(bonus);
     }
 

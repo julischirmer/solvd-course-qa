@@ -1,20 +1,16 @@
 package com.solvd.homework2.enums;
 
 public enum CourseStatus {
-    OPEN, CLOSE;
+    OPEN("Open"),
+    CLOSE("Close");
+
+    private final String status;
+
+    CourseStatus(String status){
+        this.status = status;
+    }
 
     public String getCourseStatus() {
-        String data = "";
-        switch (this) {
-            case OPEN:
-                data = "The course is open to enrollment";
-                break;
-            case CLOSE:
-                data = "\"The course is close to enrollment";
-                break;
-            default:
-                data = null;
-        }
-        return data;
+        return status;
     }
 }

@@ -8,17 +8,14 @@ import java.util.concurrent.*;
 
 public class ConnectionPool {
 
-    public static final Integer maxThread = 5;
     private static final Logger logger = LogManager.getLogger(ConnectionPool.class.getName());
     private static ConnectionPool connectionPool;
     private int size;
     private Vector<Connection> connections;
-    private int connectionsCount;
 
     public ConnectionPool(int size) {
         this.size = size;
         connections = new Vector<Connection>();
-        connectionsCount = 0;
     }
 
     public static ConnectionPool getConnectionPool() {
@@ -27,7 +24,6 @@ public class ConnectionPool {
 
     private void addConnection(Connection connection) {
         connections.add(connection);
-        connectionsCount++;
     }
 
     public void removeConnection(Connection connection) {
@@ -38,7 +34,7 @@ public class ConnectionPool {
         Connection conn = null;
 
         if (connections.size() < size) {
-            conn = new Connection("Thread: " + (connectionsCount + 1) + " -> Connection number: " + (connections.size() + 1));
+            conn = new Connection("Thread: " + (Thread.currentThread().getId() % size));
             addConnection(conn);
             return conn;
         } else {
@@ -48,7 +44,7 @@ public class ConnectionPool {
                 Thread.sleep(1000);
 
                 if (connections.size() < size) {
-                    conn = new Connection("Thread: " + (connectionsCount + 1) + " -> connection number: " + (connections.size() + 1));
+                    conn = new Connection("Thread: " + (Thread.currentThread().getId() % size));
                     addConnection(conn);
                     return conn;
                 }
@@ -56,7 +52,5 @@ public class ConnectionPool {
             throw new RuntimeException("No connections available after 10 seconds");
         }
     }
-
-
 
 }

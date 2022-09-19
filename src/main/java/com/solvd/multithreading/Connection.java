@@ -8,12 +8,6 @@ public class Connection {
     private final String name;
     private final Logger logger = LogManager.getLogger(Connection.class);
     private boolean isAvailable;
-    private String connectionNumber;
-
-    public Connection(String name, String connectionNumber) {
-        this.name = name;
-        this.connectionNumber = connectionNumber;
-    }
 
     public Connection(String name) {
         this.name = name;
